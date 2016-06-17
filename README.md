@@ -36,6 +36,7 @@ app.use(reqsign.server(reqsignOptions));
 // Use it
 app.get('/some_path', (req, res) => {
   const isRequestAuthenticated = req.user.isAuthenticated;
+  const userId = req.user.id;
   const userLogin = req.user.login;
   // etc
 });
@@ -153,6 +154,8 @@ Returns: `{Promise} resolve(isOk) reject(err)`:
 `reqsign` middleware extends the `req` object with `user` property and passes the request down the middleware pipe.
 
 * `{Boolean} req.user.isAuthenticated`
+
+* `{String} req.user.id`
 
 * `{String} req.user.login`
 
