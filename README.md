@@ -70,13 +70,17 @@ req.post('url', data)
 
 ## Scheme Description
 
+### Get and store current TimeStamp
+
+`TimeStamp = GET-TIMESTAMP()`
+
+TimeStamp is the current system time UNIX timestamp of the client machine including milliseconds (e.g., 1465564560647).
+
 ### Build String To Sign
 
 The client has to build the `StringToSign` following the following pattern:
 
 `StringToSign = <TimeStamp> + "\n" + <ContentString>`
-
-`<TimeStamp>` is the current system time UNIX timestamp of the client machine including milliseconds (e.g., 1465564560647).
 
 `<ContentString>` is a string formed depending of the request type.
 
@@ -96,7 +100,7 @@ ContentString =
 
 ### Sign the StringToSign
 
-`Signature = HMAC-SHA256(<StringToSign>, <key>)`
+`Signature = BASE64(HMAC-SHA256(<StringToSign>, <key>))`
 
 `<key>` is a secret key shared between the client and the server.
 
@@ -104,7 +108,7 @@ ContentString =
 
 The client sends the `Authorization` HTTP header with the request:
 
-`Authorization: Signature login={String} signature={String}`
+`Authorization: Signature timestamp={Int} login={String} signature={String}`
 
 ## Server-side middleware
 
@@ -162,5 +166,60 @@ Returns: `{Promise} resolve(isOk) reject(err)`:
 * `{String | null} req.user.errorCode` - Error code as follows:
   * `WRONG_REQUEST` - The request received does not comply with the scheme (e.g., wrong format of the Authorization header, or its absence etc).
   * `NO_KEY` - A key to verify the signature.
+  * `EXPIRED` - The request expired.
   * `WRONG_SIGNATURE` - Signature verification failed.
   * `REPLAYED` - The request is replayed.
+
+## Client module
+
+Use a function returned by `reqsign.client(options)` call to make signed HTTP requests to third-party APIs.
+
+### Options
+
+The options object:
+
+```json
+{
+  "login": "{String}",
+  "key": "{String}"
+}
+```
+
+#### `{String} login`
+
+The login your application is registered with by a third-party API.
+
+#### `{String} key`
+
+The key/password shard by your application and a third-party API.
+
+### API
+
+#### `{Function} reqsign.client(options)`
+
+Returns an instance of the API client you use to make signed HTTP requests to APIs.
+
+```js
+const reqsign = require('reqsign');
+const opts = {
+  login: 'my_login',
+  key: 'shared_key'
+};
+const req = reqsign(opts);
+```
+
+#### `{Function} req.get(url, data)`
+
+Method to make a GET request.
+
+Parameters:
+* `{String} url` - Target URL (without query parameters).
+* `{Object} data` - Data to be sent in request parameters.
+
+#### `{Function} req.post(url, data)`
+
+Method to make a POST request.
+
+Parameters:
+* `{String} url` - Target URL (without query parameters).
+* `{Object} data` - Data to be sent as a JSON object in request body.

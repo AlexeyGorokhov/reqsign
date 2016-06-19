@@ -20,7 +20,12 @@ app.set('port', 7000);
 
 app.get('/', (req, res, next) => {
   console.dir(req.user);
-  res.status(200).send('Hello');
+  res.status(200).json({ message: 'Hello!' });
+});
+
+app.post('/', (req, res, next) => {
+  console.dir(req.user);
+  res.status(200).json({ message: 'Hello!' });
 });
 
 const server = http.createServer(app);
@@ -28,7 +33,7 @@ server.listen(7000);
 
 function keyRetriever (login) {
   return new Promise((resolve, reject) => {
-    resolve('password');
+    resolve('my_password');
   });
 }
 

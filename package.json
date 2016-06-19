@@ -22,7 +22,10 @@
     "tap-spec": "^4.1.1",
     "tape": "^4.5.1"
   },
-  "dependencies": {},
+  "dependencies": {
+    "md5": "^2.1.0",
+    "request-promise": "^3.0.0"
+  },
   "keywords": [
     "request signing",
     "authentication",
