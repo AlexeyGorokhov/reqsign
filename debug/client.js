@@ -16,5 +16,8 @@ const data = {
 };
 
 req.post('http://localhost:7000', data)
-.then(resData => console.dir(resData))
+.then(response => {
+  console.log(response.resStatus);
+  console.dir(response.resBody);
+})
 .catch(err => console.error(err));

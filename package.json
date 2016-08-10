@@ -1,6 +1,6 @@
 {
   "name": "reqsign",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "HTTP request signing",
   "main": "index.js",
   "scripts": {

@@ -60,8 +60,8 @@ const data = {
 };
 
 req.post('url', data)
-.then((resStatus, resBody) => {
-  // Make use of resStatus and resBody
+.then(response => {
+  // Make use of response.resStatus and response.resBody
 })
 .catch(err => {
   // Process the err gracefully
@@ -216,6 +216,10 @@ Parameters:
 * `{String} url` - Target URL (without query parameters).
 * `{Object} data` - Data to be sent in request parameters.
 
+Return: `Promise<Object>` - Promise that resolves with an object with properties:
+* `{Integer} resStatus` - Response HTTP status code.
+* `{Any} resBody` - Response payload.
+
 #### `{Function} req.post(url, data)`
 
 Method to make a POST request.
@@ -223,3 +227,7 @@ Method to make a POST request.
 Parameters:
 * `{String} url` - Target URL (without query parameters).
 * `{Object} data` - Data to be sent as a JSON object in request body.
+
+Return: `Promise<Object>` - Promise that resolves with an object with properties:
+* `{Integer} resStatus` - Response HTTP status code.
+* `{Any} resBody` - Response payload.
