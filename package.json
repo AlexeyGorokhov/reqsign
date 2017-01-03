@@ -1,6 +1,6 @@
 {
   "name": "reqsign",
-  "version": "1.0.4",
+  "version": "1.1.0",
   "description": "HTTP request signing",
   "main": "index.js",
   "scripts": {
@@ -25,7 +25,8 @@
   "dependencies": {
     "debug": "^2.2.0",
     "md5": "^2.1.0",
-    "request-promise": "^3.0.0"
+    "request": "^2.79.0",
+    "request-promise-native": "^1.0.3"
   },
   "keywords": [
     "request signing",

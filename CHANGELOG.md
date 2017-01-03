@@ -1,5 +1,10 @@
 # Change Log
 
+## [1.1.0] - 2017-01-03
+
+* The `keyRetriever` function is now allowed to also resolve with an object containing roles associated with the given login;
+* Migrate from `request-promise` to `request-promise-native`.
+
 ## [1.0.4] - 2016-10-12
 
 * Add debug module

@@ -136,8 +136,13 @@ A function that retrieves the secret key for the given `login` value that the cl
 Parameters:
 * `{String} login` - The login value sent by the client in `Authorization` HTTP header.
 
-Returns `{Promise} resolve(key), reject(err)`:
-* `{String | null} key` - The key associated with the `login` to be used to verify the signature;
+Returns `{Promise} resolve(result), reject(err)`:
+
+* `{String | Object | null} result` - If `result` is a `String`, this is the key associated with the `login` to be used to verify the signature. If `result` is an `Object`, it must have the following properties:
+
+  * `{String} key`;
+  * `{Array<String>} roles` - a collection of roles associated with the `login`;
+
 * `{Error} err` - An error object. Note that absence of a `key` for given `login` is not an error condition - in this situation the promise has to resolve with the `null` value.
 
 #### `{Function} replayAttackDefender (login, signature)`
@@ -159,6 +164,8 @@ Returns: `{Promise} resolve(isOk) reject(err)`:
 * `{Boolean} req.user.isAuthenticated`
 
 * `{String} req.user.login`
+
+* `{Array<String>} req.user.roles`
 
 * `{String | null} req.user.errorCode` - Error code as follows:
   * `WRONG_REQUEST` - The request received does not comply with the scheme (e.g., wrong format of the Authorization header, or its absence etc).

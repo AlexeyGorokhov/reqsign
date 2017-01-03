@@ -1,2 +1,4 @@
-test/
-debug/
+.DS_Store
+node_modules
+test
+debug
